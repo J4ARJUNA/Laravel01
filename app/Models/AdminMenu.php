@@ -18,5 +18,7 @@ class AdminMenu extends Model
         'detail_menu',
         'harga',
         'kategori',
+        'gambar',
+
     ];
 }

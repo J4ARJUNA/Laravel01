@@ -26,3 +26,5 @@ Route::get('/admin_kategori/create', 'AdminKategoriController@create')->name('ad
 Route::get('/admin_kategori/{id}/edit', 'AdminKategoriController@edit')->name('admin_kategori.edit');
 Route::put('/admin_kategori/{id}', 'AdminKategoriController@update')->name('admin_kategori.update');
 Route::put('/admin_kategori/{id}', 'AdminKategoriController@destroy')->name('admin_kategori.destroy');
+
+Route::get('/admin_menu/create', 'AdminMenuController@create')->name('admin_menu.create');
