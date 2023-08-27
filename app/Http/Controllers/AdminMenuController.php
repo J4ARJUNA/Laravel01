@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminKategori;
 use Illuminate\Http\Request;
 use App\Models\AdminMenu;
-use Illuminate\Support\Facades\Session;
-
 class AdminMenuController extends Controller
 {
     /**
@@ -20,16 +19,19 @@ class AdminMenuController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('admin_menu.create');
-    }
+{
+    $admin_kategoris = AdminKategori::all();
+    return view('admin_menu.create', compact('admin_kategoris'));
+
+}
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        
+
 
         $this->validate($request, [
             'menu' => 'required',
@@ -45,6 +47,8 @@ class AdminMenuController extends Controller
             'gambar.required' => 'Silahkan masukkan gambar',
             'gambar.mimes' => 'File gambar harus berformat jpeg, jpg, atau png',
         ]);
+
+
 
         // Upload and save the image
         $imageName = time() . '.' . $request->gambar->getClientOriginalExtension();
