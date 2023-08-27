@@ -29,9 +29,16 @@
                     <input type="file" class="form-control" name='gambar' id="gambar" >
                 </div>
                 <div class="mb-3">
-                    <label for="kategori" class="form-label">Kategori</label>
-                    <input type="text" class="form-control" name="kategori" id="kategori">
+                    <label for="kategoriSelect" class="form-label">Pilih Kategori</label>
+                    <select class="form-control" id="kategoriSelect">
+                        <option value="" disabled selected>Pilih Kategori</option>
+                        @foreach ($admin_kategoris as $item)
+                            <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+                        @endforeach
+
+                    </select>
                 </div>
+
 
         </div>
         <div class="modal-footer">
