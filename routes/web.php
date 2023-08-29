@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminKategoriController;
+use App\Http\Controllers\AdminMenuController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +19,9 @@ Route::get('/', function () {
 });
 */
 
+Route::resource('/admin_menu', AdminMenuController::class);
 Route::resource('/admin_main', \App\Http\Controllers\AdminController::class);
-Route::resource('/admin_menu', \App\Http\Controllers\AdminMenuController::class);
-Route::resource('/admin_kategori',\App\Http\Controllers\AdminKategoriController::class);
+Route::resource('/admin_kategori',AdminKategoriController::class);
 
 Route::get('/admin_kategori/create', 'AdminKategoriController@create')->name('admin_kategori.create');
 Route::get('/admin_kategori/{id}/edit', 'AdminKategoriController@edit')->name('admin_kategori.edit');

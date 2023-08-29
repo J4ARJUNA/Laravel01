@@ -12,27 +12,26 @@ class AdminMenuController extends Controller
      */
     public function index()
     {
-        return view('admin_menu.index');
+        $admin_kategoris = AdminKategori::all();
+        $data = AdminMenu::get();
+        return view('admin_menu.index', compact('admin_kategoris','data'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-{
-    $admin_kategoris = AdminKategori::all();
-    return view('admin_menu.create', compact('admin_kategoris'));
+    {
+        $admin_kategoris = AdminKategori::all();
+        return view('admin_menu.create', compact('admin_kategoris'));
 
-}
-
+    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-
-
         $this->validate($request, [
             'menu' => 'required',
             'detail_menu' => 'required',
@@ -48,18 +47,29 @@ class AdminMenuController extends Controller
             'gambar.mimes' => 'File gambar harus berformat jpeg, jpg, atau png',
         ]);
 
+        // Mendapatkan ID kategori berdasarkan nilai yang dikirim dari form
+        $kategoriId = $request->input('kategori');
 
+        // Menemukan objek kategori berdasarkan ID
+        $kategori = AdminKategori::find($kategoriId);
+        // Menghapus tanda titik dan mengonversi string ke numerik
+
+        // Mengambil input harga dalam bentuk string (misal: '15.000')
+        $inputHarga = $request->input('harga');
+
+        // Menghapus tanda titik dan mengonversi string ke numerik
+        $harga = (float) str_replace('.', '', $inputHarga);
 
         // Upload and save the image
-        $imageName = time() . '.' . $request->gambar->getClientOriginalExtension();
-        $request->gambar->move(public_path('gambar'), $imageName);
+        $imageName = time() . '.' . $request->file('gambar')->getClientOriginalExtension();
+        $request->file('gambar')->move(public_path('gambar'), $imageName);
 
         // Create data array
         $data = [
-            'menu' => $request->input('menu'), // Provide the 'menu' value
+            'menu' => $request->input('menu'),
             'detail_menu' => $request->input('detail_menu'),
-            'harga' => $request->input('harga'),
-            'kategori' => $request->input('kategori'),
+            'harga' => $harga,
+            'kategori' => $kategori->kategori,
             'gambar' => $imageName,
         ];
 
@@ -69,6 +79,7 @@ class AdminMenuController extends Controller
         // Redirect with success message
         return redirect('admin_menu')->with('success', 'Data berhasil ditambahkan');
     }
+
 
 
     /**

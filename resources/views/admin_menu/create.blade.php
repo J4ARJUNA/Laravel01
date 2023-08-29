@@ -17,26 +17,25 @@
                     <input type="text" class="form-control" name="menu" id="menu" >
                 </div>
                 <div class="mb-3">
-                    <label for="detail_menu" class="form-label">Detail Menu</label>
-                    <textarea class="form-control" name="detail_menu" id="detail_menu"></textarea>
-                </div>
-                <div class="mb-3">
                     <label for="harga" class="form-label">Harga</label>
                     <input type="text" class="form-control" name='harga' id="harga" >
                 </div>
                 <div class="mb-3">
-                    <label for="gambar" class="form-label">Gambar</label>
-                    <input type="file" class="form-control" name='gambar' id="gambar" >
+                    <label for="detail_menu" class="form-label">Detail Menu</label>
+                    <textarea class="form-control" name="detail_menu" id="detail_menu"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="kategoriSelect" class="form-label">Pilih Kategori</label>
-                    <select class="form-control" id="kategoriSelect">
+                    <label for="kategori" class="form-label">Kategori</label>
+                    <select class="form-control" name="kategori" id="kategori">
                         <option value="" disabled selected>Pilih Kategori</option>
-                        @foreach ($admin_kategoris as $item)
-                            <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+                        @foreach ($admin_kategoris as $kategori)
+                            <option value="{{ $kategori->id }}">{{ $kategori->kategori }}</option>
                         @endforeach
-
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="gambar" class="form-label">Gambar</label>
+                    <input type="file" class="form-control" name='gambar' id="gambar" >
                 </div>
 
 

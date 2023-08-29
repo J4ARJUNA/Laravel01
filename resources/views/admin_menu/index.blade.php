@@ -26,11 +26,77 @@
                 <th class="text-uppercase   font-weight-bolder  ps-3 ">Detail</th>
                 <th class="text-uppercase   font-weight-bolder  ps-3 ">Harga</th>
                 <th class="text-uppercase   font-weight-bolder  ps-3 ">Kategori</th>
+                <th class="text-uppercase   font-weight-bolder  ps-3 ">TOOLS</th>
 
             </tr>
         </thead>
         <tbody>
+            @foreach ($data as $menu)
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <div>
 
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                                <img src="{{ asset('gambar/'.$menu->gambar)}}" alt="{{$menu->menu}}" width="200">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <div>
+
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                            <h6 class="ml-2 text-sm">{{$menu->menu}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <div>
+
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                            <h6 class="ml-2 text-sm">{{$menu->detail_menu}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <div>
+
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                            <h6 class="ml-2 text-sm">Rp : <img src="" alt="" srcset="">{{$menu->harga}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <div>
+
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                            <h6 class="ml-2 text-sm">{{$menu->kategori}}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn bg-gradient-warning  toast-btn" data-bs-toggle="modal" data-bs-target="#EditModal{{$menu->id}}">
+                            Edit
+                        </button >
+
+                        @include('admin_menu.edit')
+                        <form method="post" action="{{ route('admin_menu.destroy', $menu->id) }}" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn bg-gradient-danger toast-btn" onclick="return confirm('Anda yakin ingin menghapus menu ini?')">Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+            @endforeach
         </tbody>
         </table>
     </div>
