@@ -38,3 +38,6 @@ Route::get('/admin_menu/{id}/edit','AdminMenuController@edit')->name('admin_menu
 Route::put('/admin_menu/{id}','AdminMenuController@update')->name('admin_menu.update');
 
 
+Route::get('/admin_id/{id}/edit','AdminMenuController@edit')->name('admin_id.edit');
+Route::put('/admin_id/{id}','AdminMenuController@update')->name('admin_id.update');
+
