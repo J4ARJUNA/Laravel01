@@ -1,43 +1,64 @@
-@extends('admin_layout/app')
+<!-- Modal -->
+<div class="modal fade " id="EditModal{{$admin_id->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-@section('konten')
-<div class="container-fluid py-4 mt-2 color-grey ">
-    <div class="p-5 text-center bg-body-tertiary rounded-3">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="EditModal">EDIT DATA</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="{{ route('admin_id.update', $admin_id->id) }}" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="mb-3">
+                    <label for="judul" class="form-label">Judul Utama</label>
+                    <input type="text" class="form-control" name='judul' id="judul" value="{{ $admin_id->judul }}" >
+                </div>
+                <div class="mb-3">
+                    <label for="logo" class="form-label">Logo</label>
+                    <input type="file" class="form-control" name='logo' id="logo" value="{{ $admin_id->logo }}">
+                </div>
+                <div class="mb-3">
+                    <label for="instagram" class="form-label">instagram</label>
+                    <input type="text" class="form-control" name='instagram' id="instagram" value="{{ $admin_id->instagram }}">
+                </div>
+                <div class="mb-3">
+                    <label for="tiktok" class="form-label">tiktok</label>
+                    <input type="text" class="form-control" name='tiktok' id="tiktok" value="{{ $admin_id->tiktok }}">
+                </div>
+                <div class="mb-3">
+                    <label for="youtube" class="form-label">youtube</label>
+                    <input type="text" class="form-control" name='youtube' id="youtube" value="{{ $admin_id->youtube }}">
+                </div>
+                <div class="mb-3">
+                    <label for="facebook" class="form-label">facebook</label>
+                    <input type="text" class="form-control" name='facebook' id="facebook" value="{{ $admin_id->facebook }}">
+                </div>
+                <div class="mb-3">
+                    <label for="kontak" class="form-label">kontak</label>
+                    <input type="text" class="form-control" name='kontak' id="kontak" value="{{ $admin_id->kontak }}">
+                </div>
 
-        <h1 class="text-body-emphasis pb-4">Konfigurasi</h1>
-        <form role="form" class="text-start">
-            <div class="mb-3">
-                <label for="judul" class="form-label">Judul Utama</label>
-                <input type="text" class="form-control" name='judul' id="judul"  >
-            </div>
-            <div class="mb-3">
-                <label for="logo" class="form-label">LOGO</label>
-                <input type="file" class="form-control" name='logo' id="logo" >
-            </div>
-            <div class="mb-3">
-                <label for="instagram" class="form-label">Instagram</label>
-                <input type="text" class="form-control" name='instagram' id="instagram"  >
-            </div>
-            <div class="mb-3">
-                <label for="tiktok" class="form-label">Tiktok</label>
-                <input type="text" class="form-control" name='tiktok' id="tiktok"  >
-            </div>
-            <div class="mb-3">
-                <label for="youtube" class="form-label">Youtube</label>
-                <input type="text" class="form-control" name='youtube' id="youtube"  >
-            </div>
-            <div class="mb-3">
-                <label for="facebook" class="form-label">Facebook</label>
-                <input type="text" class="form-control" name='facebook' id="facebook"  >
-            </div>
-            <div class="mb-3">
-                <label for="kontak" class="form-label">Kontak</label>
-                <input type="text" class="form-control" name='kontak' id="kontak"  >
-            </div>
-            <div class="text-center">
-                <button type="button" class="btn bg-gradient-primary w-20 my-4 mb-2">Update</button>
-            </div>
-        </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+
     </div>
+    </div>
+</div>
+</div>
 
-@endsection
+
+<!-- Script Bootstrap & jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+

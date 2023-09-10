@@ -12,7 +12,10 @@ class AdminIdController extends Controller
      */
     public function index()
     {
-        return view('admin_id.edit');
+        $data = AdminId::get();
+
+        //render view with posts
+        return view('admin_id.index', compact('data'));
     }
 
     /**
@@ -20,7 +23,7 @@ class AdminIdController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -28,7 +31,7 @@ class AdminIdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -42,52 +45,54 @@ class AdminIdController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $kategori = AdminId::findOrFail($id);
-        return view('admin_id.edit', compact('data'));
-    }
+    // AdminIdController.php
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+// Show the edit form
+public function edit($id)
+{
+    $admin_id = AdminId::find($id);
+    return view('admin_id.edit', compact('admin_id'));
+}
+
+// Update the data
+// AdminIdController.php
+
+public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'judul' => 'required',
-            'logo' => 'required',
-            'instagram' => 'required',
-            'tiktok' => 'required',
-            'youtube' => 'required',
-            'facebook' => 'required',
-            'kontak' => 'required',
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'judul' => 'required|string|max:255',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Assuming 'logo' is an image file
+            'instagram' => 'nullable|string|max:255',
+            'tiktok' => 'nullable|string|max:255',
+            'youtube' => 'nullable|string|max:255',
+            'facebook' => 'nullable|string|max:255',
+            'kontak' => 'nullable|string|max:255',
         ]);
 
-        // Ambil nilai input dari formulir
-        $judul = $request->input('judul');
-        $logo = $request->input('logo');
-        $instagram = $request->input('instagram');
-        $tiktok = $request->input('tiktok');
-        $youtube = $request->input('youtube');
-        $facebook = $request->input('facebook');
-        $kontak = $request->input('kontak');
+        // Find the admin record by ID
+        $admin = AdminId::findOrFail($id);
 
-        // Buat data yang akan diupdate
-        $data = [
-            'judul' => $judul,
-            'logo' => $logo,
-            'instagram' => $instagram,
-            'tiktok' => $tiktok,
-            'youtube' => $youtube,
-            'facebook' => $facebook,
-            'kontak' => $kontak,
-        ];
+        // Update the admin record with the validated data
+        $admin->update([
+            'judul' => $validatedData['judul'],
+            'instagram' => $validatedData['instagram'],
+            'tiktok' => $validatedData['tiktok'],
+            'youtube' => $validatedData['youtube'],
+            'facebook' => $validatedData['facebook'],
+            'kontak' => $validatedData['kontak'],
+        ]);
 
-        // Update data ke tabel
-        AdminId::where('id', $id)->update($data);
+        // Handle the logo file upload if provided
+        if ($request->hasFile('logo')) {
+            $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
+            $request->file('logo')->move(public_path('logo'), $imageName);
+            $admin->logo = $imageName;
+            $admin->save();
+        }
 
-        // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
-        return redirect('admin_kategori')->with('success', 'Berhasil memasukkan Edit data');
+        // Redirect back to the admin profile page or wherever you want
+        return redirect()->route('admin_id.index'); // Replace 'admin.profile' with the actual route name
     }
 
     /**
