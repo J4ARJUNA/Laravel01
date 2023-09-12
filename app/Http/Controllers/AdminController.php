@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,7 +12,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin_main.index');
+        $data = Admin::get();
+        return view('admin.index', compact('data'));
     }
 
     /**
@@ -19,7 +21,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
