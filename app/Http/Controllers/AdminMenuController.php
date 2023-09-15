@@ -104,55 +104,57 @@ class AdminMenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $this->validate($request, [
-            'menu' => 'required',
-            'detail_menu' => 'required',
-            'harga' => 'required',
-            'kategori' => 'required',
-            'gambar' => 'required|mimes:jpeg,jpg,png',
-        ], [
-            'menu.required' => 'Silahkan masukkan menu',
-            'detail_menu.required' => 'Silahkan masukkan detail menu',
-            'harga.required' => 'Silahkan masukkan harga',
-            'kategori.required' => 'Silahkan masukkan kategori',
-            'gambar.required' => 'Silahkan masukkan gambar',
-            'gambar.mimes' => 'File gambar harus berformat jpeg, jpg, atau png',
-        ]);
 
-        // Mendapatkan ID kategori berdasarkan nilai yang dikirim dari form
-        $kategoriId = $request->input('kategori');
+public function update(Request $request, string $id)
+{
+    $this->validate($request, [
+        'menu' => 'required',
+        'detail_menu' => 'required',
+        'harga' => 'required',
+        'kategori' => 'required',
+        'gambar' => 'nullable|mimes:jpeg,jpg,png', // Make 'gambar' field optional
+    ], [
+        'menu.required' => 'Silahkan masukkan menu',
+        'detail_menu.required' => 'Silahkan masukkan detail menu',
+        'harga.required' => 'Silahkan masukkan harga',
+        'kategori.required' => 'Silahkan masukkan kategori',
+        'gambar.mimes' => 'File gambar harus berformat jpeg, jpg, atau png',
+    ]);
 
-        // Menemukan objek kategori berdasarkan ID
-        $kategori = AdminKategori::find($kategoriId);
-        // Menghapus tanda titik dan mengonversi string ke numerik
+    // Retrieve the existing menu record
+    $menu = AdminMenu::find($id);
 
-        // Mengambil input harga dalam bentuk string (misal: '15.000')
-        $inputHarga = $request->input('harga');
+    if (!$menu) {
+        // Handle the case where the menu item with the given ID is not found
+        return redirect('admin_menu')->with('error', 'Menu not found');
+    }
 
-        // Menghapus tanda titik dan mengonversi string ke numerik
-        $harga = (float) str_replace('.', '', $inputHarga);
-
-        // Upload and save the image
+    // Check if a new 'gambar' file was uploaded
+    if ($request->hasFile('gambar')) {
+        // Upload and save the new 'gambar' file
         $imageName = time() . '.' . $request->file('gambar')->getClientOriginalExtension();
         $request->file('gambar')->move(public_path('gambar'), $imageName);
-
-        // Create data array
-        $data = [
-            'menu' => $request->input('menu'),
-            'detail_menu' => $request->input('detail_menu'),
-            'harga' => $harga,
-            'kategori' => $kategori->kategori,
-            'gambar' => $imageName,
-        ];
-
-        // Insert data into the database
-        AdminMenu::where('id', $id)->update($data);
-
-        // Redirect with success message
-        return redirect('admin_menu')->with('success', 'Data berhasil ditambahkan');
+        $menu->gambar = $imageName;
     }
+
+    // Update only the fields that were submitted in the form
+    $menu->menu = $request->input('menu');
+    $menu->detail_menu = $request->input('detail_menu');
+    $menu->kategori = AdminKategori::find($request->input('kategori'))->kategori;
+
+    // Convert and update the harga field
+    $inputHarga = $request->input('harga');
+    $harga = (float) str_replace('.', '', $inputHarga);
+    $menu->harga = $harga;
+
+    // Save the updated menu item
+    $menu->save();
+
+    // Redirect with success message
+    return redirect('admin_menu')->with('success', 'Data berhasil diperbarui');
+}
+
+
 
     /**
      * Remove the specified resource from storage.

@@ -54,14 +54,13 @@
                     </td>
                     <td>
                         <div class="d-flex px-2 py-1">
-                            <div>
 
-                            </div>
                             <div class="d-flex flex-column justify-content-center">
-                            <h6 class="ml-2 text-sm">{{$menu->detail_menu}}</h6>
+                                <h6 class="ml-2 text-sm text-center"  style="white-space: pre-wrap;">{{$menu->detail_menu}}</h6>
                             </div>
                         </div>
                     </td>
+
                     <td>
                         <div class="d-flex px-2 py-1">
                             <div>

@@ -28,12 +28,15 @@
                 <div class="mb-3">
                     <label for="kategori" class="form-label">Kategori</label>
                     <select class="form-control" name="kategori" id="kategori">
-                        <option value="" disabled selected>Pilih Kategori</option>
-                        @foreach ($admin_kategoris as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->kategori }}</option>
+                        <option value="" disabled>Pilih Kategori</option>
+                        @foreach ($admin_kategoris as $kategoriOption)
+                            <option value="{{ $kategoriOption->id }}" {{ $kategoriOption->id == $menu->kategori ? 'selected' : '' }}>
+                                {{ $kategoriOption->kategori }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label for="gambar" class="form-label">Gambar</label>
                     <input type="file" class="form-control" name='gambar' id="gambar" value="{{ $menu->gambar }}">
