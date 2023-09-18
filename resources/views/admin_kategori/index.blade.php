@@ -50,11 +50,7 @@
                             </div>
                         </td>
                         <td>
-                            <button type="button" class="btn bg-gradient-warning  toast-btn" data-bs-toggle="modal" data-bs-target="#EditModal{{$kategori->id}}">
-                                Edit
-                            </button >
 
-                            @include('admin_kategori.edit')
                             <form method="post" action="{{ route('admin_kategori.destroy', $kategori->id) }}" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
