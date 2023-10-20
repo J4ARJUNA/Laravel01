@@ -109,11 +109,13 @@
             </ul>
         </div>
         <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+            <form action="{{route('logout')}}" method="POST">
             <div class="mx-3">
-                <a class="btn bg-gradient-primary mt-4 w-100"
-                    href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree"
-                    type="button">Upgrade to pro</a>
+                @csrf
+                @method('DELETE')
+                <button class="btn bg-gradient-primary mt-4 w-100" type="submit">Logout</button>
             </div>
+        </form>
         </div>
     </aside>
     <div class="main-content position-relative bg-gray-200 max-height-vh-100 h-100">

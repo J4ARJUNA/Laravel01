@@ -16,8 +16,16 @@
                     <input type="text" class="form-control" name='judul' id="judul" value="{{ $admin_id->judul }}" >
                 </div>
                 <div class="mb-3">
+                    <label for="paragraph" class="form-label">Paragraph</label>
+                    <input type="text" class="form-control" name='paragraph' id="paragraph" value="{{ $admin_id->paragraph }}" >
+                </div>
+                <div class="mb-3">
                     <label for="logo" class="form-label">Logo</label>
                     <input type="file" class="form-control" name='logo' id="logo" value="{{ $admin_id->logo }}">
+                </div>
+                <div class="mb-3">
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <input type="text" class="form-control" name='alamat' id="alamat" value="{{ $admin_id->alamat }}" >
                 </div>
                 <div class="mb-3">
                     <label for="instagram" class="form-label">instagram</label>
