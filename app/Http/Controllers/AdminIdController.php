@@ -62,7 +62,9 @@ public function update(Request $request, $id)
         // Validate the incoming request data
         $validatedData = $request->validate([
             'judul' => 'required|string|max:255',
+            'paragraph' => 'required|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Assuming 'logo' is an image file
+            'alamat' => 'required|string|max:255',
             'instagram' => 'nullable|string|max:255',
             'tiktok' => 'nullable|string|max:255',
             'youtube' => 'nullable|string|max:255',
@@ -76,6 +78,8 @@ public function update(Request $request, $id)
         // Update the admin record with the validated data
         $admin->update([
             'judul' => $validatedData['judul'],
+            'paragraph' => $validatedData['paragraph'],
+            'alamat' => $validatedData['alamat'],
             'instagram' => $validatedData['instagram'],
             'tiktok' => $validatedData['tiktok'],
             'youtube' => $validatedData['youtube'],

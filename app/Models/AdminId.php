@@ -15,7 +15,9 @@ class AdminId extends Model
      */
     protected $fillable = [
         'judul',
+        'paragraph',
         'logo',
+        'alamat',
         'instagram',
         'tiktok',
         'youtube',

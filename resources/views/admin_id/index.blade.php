@@ -6,7 +6,7 @@
 
     <div class="col-12">
     @extends('admin_id.edit')
-    <div class="container-fluid py-4 mt-2 color-grey ">
+    <div class="container-fluid py-4 color-grey ">
         <div class="p-5 text-center bg-body-tertiary rounded-3">
             <h1 class="text-body-emphasis pb-4">Konfigurasi Halaman Anda</h1>
             @foreach ($data as $admin_id)
@@ -18,9 +18,19 @@
 
                     <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" value="{{$admin_id->judul}}" readonly>
                 </div>
+                <h5>Paragraph</h5>
+                <div class="input-group input-group-outline my-3">
+
+                    <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" value="{{$admin_id->paragraph}}" readonly>
+                </div>
                 <h5>Logo</h5>
                 <div class="input-group input-group-outline my-3">
                     <img src="{{asset('logo/'.$admin_id->logo)}}" alt="{{$admin_id->logo}}" width="200" srcset="">
+                </div>
+                <h5>Alamat</h5>
+                <div class="input-group input-group-outline my-3">
+
+                    <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" value="{{$admin_id->alamat}}" readonly>
                 </div>
                 <h5>Instagram</h5>
                 <div class="input-group input-group-outline my-3">
